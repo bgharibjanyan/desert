@@ -36,4 +36,22 @@ function init(character){
             actions.copterOut();
         }
       });
+      
+      function getRandomInt(max) {
+        return Math.floor(Math.random() * max);
+      }
+      
+      console.log(getRandomInt(3));
+
+      for(var i=0;i<10;i++){
+
+        var locationX=getRandomInt(1000)
+        var locationY=getRandomInt(750)
+      
+        
+
+        map.generate(CoffeeMonster,locationX,locationY,"coffee_monster");
+      }
+
+      
 }

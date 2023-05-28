@@ -16,9 +16,35 @@ let map ={
         let yDistance=firstY-secondY;
 
         let distance=Math.round( Math.sqrt(yDistance*yDistance)+(xDistance*xDistance))/10;
-        
+
         return Number(distance);
+    },
+
+    generate:function(character,locX,locY,className){
+        let genCharacter=new character();
+        character.positionX=locX;
+        character.positionY=locY;
+    
+
+        genCharacter.element=this.appendCharacter(className);
+        console.log(genCharacter)
+        genCharacter.element.style.top=character.positionY+"px";
+        genCharacter.element.style.left=character.positionX+"px";
+
+    },
+
+    appendCharacter: function(className){
+        const charElement=document.createElement("img");
+        charElement.src = "./img/"+className+".png";
+        charElement.classList.add("coffee-monster");
+        document.getElementById("map").appendChild(charElement)
+        return charElement;
+
     }
+
+
+
+
 }
 
 
@@ -68,6 +94,7 @@ var actions={
         document.getElementById("jun").style.display="none"
         helicopter.control=true;
         helicopter.speed=25;
+        junDev.speed=25;
         junDev.control=false;
         init()
         }
@@ -83,6 +110,7 @@ var actions={
         junDev.positionY=helicopter.positionY-10
         junDev.moveInMap
          document.getElementById("jun").style.display="flex"
+         junDev.speed=5;
          helicopter.speed=0;
         helicopter.control=false;
         junDev.control=true;

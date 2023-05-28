@@ -30,7 +30,15 @@ body .map .jun-icon {
   height: 30px;
   width: 15px;
   position: relative;
+  margin: 0;
   top: 100px;
   left: 100px;
+  transition: 0.1s;
+}
+body .map .coffee-monster {
+  height: 35px;
+  width: 20px;
+  position: relative;
+  margin: 0;
   transition: 0.1s;
 }/*# sourceMappingURL=map_styles.css.map */
