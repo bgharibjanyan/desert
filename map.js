@@ -1,6 +1,24 @@
 let map ={
     height:800,
     width:1200,
+
+    items: new Array(),
+
+    distance: function(firstCharacter,secondCharacter ){
+        let firstX=firstCharacter.positionX;
+
+        let firstY=firstCharacter.positionY;
+        let secondX= secondCharacter.positionX;
+        let secondY= secondCharacter.positionY;
+
+        let xDistance=firstX-secondX;
+
+        let yDistance=firstY-secondY;
+
+        let distance=Math.round( Math.sqrt(yDistance*yDistance)+(xDistance*xDistance))/10;
+        
+        return Number(distance);
+    }
 }
 
 
@@ -44,15 +62,23 @@ var actions={
 
 
     copterIn:function(){
+
+        if(map.distance(helicopter, junDev)<100){
+
         document.getElementById("jun").style.display="none"
         helicopter.control=true;
         helicopter.speed=25;
         junDev.control=false;
         init()
+        }
+        else{
+            return;
+        }
     },
 
     copterOut:function(){
        
+        if(helicopter.control===true){
         junDev.positionX=helicopter.positionX+10
         junDev.positionY=helicopter.positionY-10
         junDev.moveInMap
@@ -61,6 +87,7 @@ var actions={
         helicopter.control=false;
         junDev.control=true;
         init()
+        }
     }
 
 }

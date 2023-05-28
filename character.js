@@ -45,11 +45,11 @@ let helicopter={
         document.getElementById("copter").style.top= this.positionY+"px"
         document.getElementById("copter").style.left= this.positionX+"px"
         
-        if(this.direction==="left")
+        if(this.direction==="left"&& this.speed>0)
         {
             document.getElementById("copter").src = "./img/hely_left.png"
         }
-        else if(this.direction==="right")
+        else if(this.direction==="right"&& this.speed>0)
         {
             document.getElementById("copter").src = "./img/hely_right.png"
         }
