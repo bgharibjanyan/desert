@@ -1,8 +1,12 @@
 
+function getRandomInt(max) {
+        return Math.floor(Math.random() * max);
+      }
+      
+    
 
 
-
-function init(character){
+function playerInit(character){
 
 
 
@@ -36,14 +40,18 @@ function init(character){
             actions.copterOut();
         }
       });
-      
-      function getRandomInt(max) {
-        return Math.floor(Math.random() * max);
-      }
-      
-      console.log(getRandomInt(3));
 
-      for(var i=0;i<10;i++){
+
+
+      
+      
+
+     
+}
+
+function mapGeneration(){
+
+ for(var i=0;i<10;i++){
 
         var locationX=getRandomInt(1000)
         var locationY=getRandomInt(750)
@@ -51,7 +59,21 @@ function init(character){
         
 
         map.generate(CoffeeMonster,locationX,locationY,"coffee_monster");
-      }
+      }  
 
-      
 }
+
+
+
+window.onload = function() {
+    mapGeneration();
+    playerInit(junDev);
+  };
+
+
+let mouseX, mouseY;
+
+document.onmousemove = function(event) {
+  mouseX = event.clientX;
+  mouseY = event.clientY;
+};
