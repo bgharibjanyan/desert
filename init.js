@@ -1,79 +1,73 @@
 
 function getRandomInt(max) {
-        return Math.floor(Math.random() * max);
-      }
-      
-    
-
-
-function playerInit(character){
+    return Math.floor(Math.random() * max);
+  }
+  
 
 
 
- var currentCharacter=character;
-
- if(junDev.control==true)
- {
-     currentCharacter=junDev;
- }
- else{
-     currentCharacter=helicopter
- }
-
-    document.addEventListener('keydown', function(event) {
-        if (event.key === 'ArrowDown' || event.keyCode === 40) {
-            actions.goDown(currentCharacter);
-        }
-        else if (event.key === 'ArrowLeft' || event.keyCode ===37) {
-            actions.goLeft(currentCharacter);
-        }
-        else if (event.key === 'ArrowRight' || event.keyCode === 39) {
-            actions.goRight(currentCharacter);
-        } 
-        else if (event.key === 'ArrowUp' || event.keyCode === 38) {
-            actions.goUP(currentCharacter);
-        }
-        else if (event.key === 'w' ) {
-            actions.copterIn();
-        }
-        else if (event.key === 'q' ) {
-            actions.copterOut();
-        }
-      });
+function playerInit(char){
 
 
 
-      
-      
+var currentCharacter=char;
 
-     
+
+
+document.addEventListener('keydown', function(event) {
+    if (event.key === 's') {
+        actions.goDown(currentCharacter);
+    }
+    else if (event.key === 'a') {
+        actions.goLeft(currentCharacter);
+    }
+    else if (event.key === 'd') {
+        actions.goRight(currentCharacter);
+    } 
+    else if (event.key === 'w') {
+        actions.goUP(currentCharacter);
+    }
+    else if (event.key === 'e' ) {
+        actions.copterIn();
+    }
+    else if (event.key === 'q' ) {
+        actions.copterOut();
+    }
+  });
+
+  document.getElementById("map").onclick=junDev.weapon.shoot.bind(gun);
+
+  
+  
+
+ 
 }
 
 function mapGeneration(){
 
- for(var i=0;i<10;i++){
+for(var i=0;i<10;i++){
 
-        var locationX=getRandomInt(1000)
-        var locationY=getRandomInt(750)
-      
-        
+    var locationX=getRandomInt(1000)
+    var locationY=getRandomInt(750)
+  
+    
 
-        map.generate(CoffeeMonster,locationX,locationY,"coffee_monster");
-      }  
+    map.generate(CoffeeMonster,locationX,locationY,"coffee_monster","coffee-monster");
+  }  
 
 }
 
 
 
 window.onload = function() {
-    mapGeneration();
-    playerInit(junDev);
-  };
+mapGeneration();
+playerInit(junDev);
+};
 
 
 let mouseX, mouseY;
 
 document.onmousemove = function(event) {
-  mouseX = event.clientX;
-  mouseY = event.clientY;
+mouseX = event.clientX;
+mouseY = event.clientY;
 };

@@ -8,7 +8,7 @@ let junDev= {
     control:true,
     direction:null,
     level:0,
-
+    weapon:gun,
 
     moveInMap:function(){
         document.getElementById("jun").style.top= this.positionY+"px"

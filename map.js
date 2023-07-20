@@ -3,7 +3,8 @@ let map ={
     width:0,
     mapElement:document.getElementById("map"),
 
-    items: new Array(),
+
+    mobs:new Array(),
     
     distance: function(firstCharacter,secondCharacter ){
         let firstX=firstCharacter.positionX;
@@ -25,26 +26,29 @@ let map ={
 
     setDimensions(){
         this.height=this.mapElement.offsetHeight;
-        this.height=this.mapElement.offsetHeight;
+        this.width=this.mapElement.offsetWidth;
     },
 
-    generate:function(character,locX,locY,className){
+    generate:function(character,locX,locY,monsterID,className){
         let genCharacter=new character();
+        this.mobs.push(genCharacter);
         character.positionX=locX;
         character.positionY=locY;
     
+        console.log(this.mobs)
 
-        genCharacter.element=this.appendCharacter(className);
+        genCharacter.element=this.appendCharacter(monsterID,className);
         console.log(genCharacter)
         genCharacter.element.style.top=character.positionY+"px";
         genCharacter.element.style.left=character.positionX+"px";
 
     },
 
-    appendCharacter: function(className){
+    appendCharacter: function(monsterID,className){
         const charElement=document.createElement("img");
-        charElement.src = "./img/"+className+".png";
-        charElement.classList.add("coffee-monster");
+        charElement.src = "./img/"+monsterID+".png";
+        charElement.classList.add(className);
+
         document.getElementById("map").appendChild(charElement)
         return charElement;
 
@@ -58,18 +62,20 @@ var actions={
     goRight:function(character){
         if(character.positionX<map.width-20){
             character.positionX+=character.speed;
-        }
+    
         character.direction="right"
-        character.moveInMap();
+        character.moveInMap(); 
+       }
     },
     goLeft:function(character){
         if(character.positionX>20){
             character.positionX-=character.speed;
-        }
+        
         character.direction="left"
         
         character.moveInMap();
 
+        }
     },
 
     goUP:function(character){
@@ -102,7 +108,7 @@ var actions={
         helicopter.speed=25;
         junDev.speed=25;
         junDev.control=false;
-        playerInit()
+        playerInit(helicopter)
         }
         else{
             return;
@@ -120,56 +126,9 @@ var actions={
         helicopter.speed=0;
         helicopter.control=false;
         junDev.control=true;
-        playerInit()
+        playerInit(junDev)
         }
     },
 
 
-    shoot:function(){
-
-        let targetX=mouseX;
-        let targetY=mouseY;
-
-        let positionX=junDev.positionX +10;
-        let positionY=junDev.positionY +10;
-        let speed=5;
-
-        let XInY=(targetX-junDev.positionX)/(targetY-junDev.positionY);
-           
-        let speedY=Math.sqrt((speed*speed)/(XInY*XInY+1));
-        if(targetY<positionY){
-            speedY=speedY*(-1)
-            }
-
-        let speedX=XInY*speedY;
-
-        const currentBullet=document.createElement("div")
-
-        currentBullet.setAttribute("class","bullet")
-        currentBullet.style.left=positionX+"px";
-        currentBullet.style.top=positionY+"px";
-
-
-       shooting=setInterval(function () {
-           
-            positionX=positionX+speedX;
-            positionY=positionY+speedY;
-
-            currentBullet.style.left=positionX+"px";
-            currentBullet.style.top=positionY+"px";
-            
-        
-
-        },10);
-
-        
-
-        document.getElementById("map").appendChild(currentBullet)
-    
-
-
-
-    }
-
 }
-document.getElementById("map").onclick=actions.shoot;
