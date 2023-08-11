@@ -8,7 +8,7 @@ let junDev= {
     control:true,
     direction:null,
     level:0,
-    weapon:gun,
+    weapon:0,
 
     moveInMap:function(){
         document.getElementById("jun").style.top= this.positionY+"px"
@@ -62,17 +62,17 @@ let helicopter={
 
 
 function CoffeeMonster(){
-    health=100;
-    attack=3;
-    speed=5;
-    positionX=0;
-    positionY=0;
-    control=true;
-    direction=null;
-    level=0;
-    stats="active"
-    element=null;
-    nick="coffee_monster";
+    this.health=100;
+    this.attack=3;
+    this.speed=5;
+    this.positionX=0;
+    this.positionY=0;
+    this.control=true;
+    this.direction=null;
+    this.level=0;
+    this.stats="active"
+    this.element=null;
+    this.nick="coffee_monster";
 
     moveInMap=function(){
         document.getElementById("jun").style.top= this.positionY+"px"

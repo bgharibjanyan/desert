@@ -29,16 +29,16 @@ let map ={
         this.width=this.mapElement.offsetWidth;
     },
 
-    generate:function(character,locX,locY,monsterID,className){
-        let genCharacter=new character();
+    generate:function(character,locX,locY,charID,className){
+        let genCharacter=character;
         this.mobs.push(genCharacter);
         character.positionX=locX;
         character.positionY=locY;
     
         console.log(this.mobs)
 
-        genCharacter.element=this.appendCharacter(monsterID,className);
-        console.log(genCharacter)
+        genCharacter.element=this.appendCharacter(charID,className);
+        console.log(genCharacter);
         genCharacter.element.style.top=character.positionY+"px";
         genCharacter.element.style.left=character.positionX+"px";
 

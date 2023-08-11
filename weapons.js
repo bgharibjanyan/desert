@@ -1,68 +1,100 @@
-function weapon(damage,interval){ 
+class Weapon{
+
+  constructor(damage, interval) {
+    this.damage = damage;
+    this.interval = interval;
+   
+  };
+  
+
+  
+  
+
+  shoot() {
+    let targetX = mouseX;
+    let targetY = mouseY;
+
+    let positionX = junDev.positionX + 10;
+    let positionY = junDev.positionY + 10;
+    let speed = 5;
+
+    let XInY = (targetX - junDev.positionX) / (targetY - junDev.positionY);
+
+    let speedY = Math.sqrt((speed * speed) / (XInY * XInY + 1));
+
+    if (targetY < positionY) {
+      speedY = speedY * -1;
+    }
+
+    let speedX = XInY * speedY;
+
+    const currentBullet = document.createElement("div");
+
+    currentBullet.setAttribute("class", "bullet");
+
+    currentBullet.style.left = positionX + "px";
+    currentBullet.style.top = positionY + "px";
 
 
-   this.damage=damage;
-   this.interval=interval;
+    let bulPath;
 
-  this.shoot=function(){
+    const shootingInterval = setInterval(()=> {
 
-     let targetX=mouseX;
-     let targetY=mouseY;
-
-     let positionX=junDev.positionX +10;
-     let positionY=junDev.positionY +10;
-     let speed=5;
-
-     let XInY=(targetX-junDev.positionX)/(targetY-junDev.positionY);
-        
-     let speedY=Math.sqrt((speed*speed)/(XInY*XInY+1));
-     if(targetY<positionY){
-         speedY=speedY*(-1)
-         }
-
-     let speedX=XInY*speedY;
-
-     const currentBullet=document.createElement("div")
-
-     currentBullet.setAttribute("class","bullet")
-     currentBullet.style.left=positionX+"px";
-     currentBullet.style.top=positionY+"px";
+      positionX = positionX + speedX;
+      positionY = positionY + speedY;
+  
+      currentBullet.style.left = positionX + "px";
+      currentBullet.style.top = positionY + "px";
+      bulPath=-1;
+      
 
 
-    shooting=setInterval(function () {
-        
-         positionX=positionX+speedX;
-         positionY=positionY+speedY;
+      if (bulPath!== -1) {
+        this.hitCheck(positionX,positionY,bulPath).bind(this);
 
-         currentBullet.style.left=positionX+"px";
-         currentBullet.style.top=positionY+"px";
-         
-     this.HitCheck(positionX,positionY)
+        this.hit(map.mobs[theHit]);
 
-     },10 );
-     
+        clearInterval(this.shootingInterval); 
+        currentBullet.remove();
+      }
+  
+      if (positionX > map.width || positionY > map.height||positionX < 0 || positionY < 0) {
+        clearInterval(this.shootingInterval); 
+        currentBullet.remove();
 
-     
+      }
+    }, 10);   
 
-     document.getElementById("map").appendChild(currentBullet)
- 
- };
+    document.getElementById("map").appendChild(currentBullet);
+  };
 
- this.HitCheck=function(locX,locY){
 
    
-   for(var i=0;i<map.mobs.length;i++)
-   {
 
-      if(locX-map.mobs[i].positionX<10||locX-map.mobs[i].positionX>-10){
-console.log("123454")
-         return true;
+   static hitCheck(locX, locY, currentFlag) {
+
+    var flag=-1;
+
+    for (var i = 0; i < map.mobs.length; i++) {
+      if (
+        locX - map.mobs[i].positionX < 20 ||
+        locX - map.mobs[i].positionX > -20 ||
+        locY - map.mobs[i].positionY < 20 ||
+        locY - map.mobs[i].positionY > -20
+      ) {
+
+        flag=i
+        
       }
+      else{flag=-1}
+    }
+    currentFlag=flag;
+  };
 
-   }
- };
+  hit(mob)
+  {
 
-
+    console.log(mob);
+   mob.health-=this.damage;
+  }
 }
-
-var gun=new weapon(10,10)

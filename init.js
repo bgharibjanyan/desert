@@ -3,16 +3,9 @@ function getRandomInt(max) {
     return Math.floor(Math.random() * max);
   }
   
-
-
-
 function playerInit(char){
 
-
-
 var currentCharacter=char;
-
-
 
 document.addEventListener('keydown', function(event) {
     if (event.key === 's') {
@@ -35,12 +28,8 @@ document.addEventListener('keydown', function(event) {
     }
   });
 
-  document.getElementById("map").onclick=junDev.weapon.shoot.bind(gun);
+  document.getElementById("map").onclick=junDev.weapon.shoot;
 
-  
-  
-
- 
 }
 
 function mapGeneration(){
@@ -50,9 +39,9 @@ for(var i=0;i<10;i++){
     var locationX=getRandomInt(1000)
     var locationY=getRandomInt(750)
   
+   var mob= new CoffeeMonster(); 
     
-
-    map.generate(CoffeeMonster,locationX,locationY,"coffee_monster","coffee-monster");
+    map.generate(mob,locationX,locationY,"coffee_monster","coffee-monster");
   }  
 
 }
@@ -60,8 +49,11 @@ for(var i=0;i<10;i++){
 
 
 window.onload = function() {
+var gun = new Weapon(10, 30);
+junDev.weapon=gun;
 mapGeneration();
 playerInit(junDev);
+
 };
 
 
